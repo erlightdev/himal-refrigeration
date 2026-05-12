@@ -1,0 +1,28 @@
+{
+  "name": "Himal-Refrigeration",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:web": "turbo -F web dev",
+    "check": "biome check --write ."
+  },
+  "dependencies": {
+    "@Himal-Refrigeration/env": "*",
+    "dotenv": "^17.2.2",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@Himal-Refrigeration/config": "*",
+    "@biomejs/biome": "^2.2.0",
+    "turbo": "^2.8.12",
+    "typescript": "^6"
+  },
+  "packageManager": "npm@11.4.2"
+}

@@ -1,0 +1,3 @@
+{
+  "extends": "@Himal-Refrigeration/config/tsconfig.base.json"
+}
