@@ -156,7 +156,7 @@ export default function Header() {
           <div className="flex items-center justify-between gap-4 rounded-lg border border-zinc-200/70 bg-white/80 px-4 py-3 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.18)] backdrop-blur-xl md:px-6 md:py-4 dark:border-white/10 dark:bg-zinc-950/70 dark:shadow-[0_10px_30px_-12px_rgba(0,0,0,0.6)]">
             <Link to="/" aria-label="Himal Refrigeration" className="inline-flex items-center">
               <img
-                src="https://placehold.co/200x44/8A0303/ffffff/png?text=HIMAL+REFRIGERATION&font=inter"
+                src="himal-logo.png"
                 alt="Himal Refrigeration"
                 className="h-9 w-auto object-contain md:h-10"
               />
