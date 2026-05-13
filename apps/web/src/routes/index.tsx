@@ -175,7 +175,7 @@ function HomeComponent() {
           </h1>
           {/* Dark mode headline */}
           <h1 className="mt-7 hidden text-balance font-serif text-5xl font-semibold leading-[1.02] tracking-tight text-zinc-100 md:text-6xl lg:text-7xl dark:block">
-            Warmth on demand,
+            Reliable Warmth,
             <span className="mt-1 block font-medium italic text-[#ff8a6b]">
               comfort that holds the line.
             </span>
