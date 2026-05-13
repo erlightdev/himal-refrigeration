@@ -25,26 +25,52 @@ function HomeComponent() {
           aria-hidden
           className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
         >
-          {/* Light: cold airflow — white bg dropped via multiply */}
+          {/* Light: cold airflow — mobile uses mobile-cold-video, desktop uses cold-video */}
           <video
-            src="/cold-video.mp4"
             autoPlay
             muted
             loop
             playsInline
             preload="metadata"
-            className="block h-full w-full object-contain object-top md:object-cover mix-blend-multiply dark:hidden"
-          />
-          {/* Dark: warm airflow — black bg dropped via screen */}
+            key="cold-mobile"
+            className="block h-full w-full object-cover object-top mix-blend-multiply md:hidden dark:hidden"
+          >
+            <source src="/mobile-cold-video.mp4" type="video/mp4" />
+          </video>
           <video
-            src="/warm-video.mp4"
             autoPlay
             muted
             loop
             playsInline
             preload="metadata"
-            className="hidden h-full w-full object-contain object-top md:object-cover mix-blend-screen dark:block"
-          />
+            key="cold-desktop"
+            className="hidden h-full w-full object-cover object-top mix-blend-multiply md:block md:dark:hidden"
+          >
+            <source src="/cold-video.mp4" type="video/mp4" />
+          </video>
+          {/* Dark: warm airflow — mobile + desktop variants */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            key="warm-mobile"
+            className="hidden h-full w-full object-cover object-top mix-blend-screen dark:block md:dark:hidden"
+          >
+            <source src="/mobile-warm-video.mp4" type="video/mp4" />
+          </video>
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            key="warm-desktop"
+            className="hidden h-full w-full object-cover object-top mix-blend-screen md:dark:block"
+          >
+            <source src="/warm-video.mp4" type="video/mp4" />
+          </video>
           {/* Themed atmospheric overlay — cold (light) / warm (dark) */}
           <div
             className="absolute inset-0 block dark:hidden"
