@@ -18,7 +18,7 @@ const FLOATERS = [
 
 function HomeComponent() {
   return (
-    <main className="bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+    <main className="overflow-x-hidden bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
       <section className="relative isolate flex min-h-svh flex-col justify-center overflow-hidden">
         {/* AC airflow video as hero top background — black bg dropped via blend */}
         <div
