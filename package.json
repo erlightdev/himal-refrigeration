@@ -16,11 +16,12 @@
   "dependencies": {
     "@Himal-Refrigeration/env": "*",
     "dotenv": "^17.2.2",
+    "lucide-react": "^1.3.0",
     "zod": "^4.1.13"
   },
   "devDependencies": {
-    "@Himal-Refrigeration/config": "*",
     "@biomejs/biome": "^2.2.0",
+    "@Himal-Refrigeration/config": "*",
     "turbo": "^2.8.12",
     "typescript": "^6"
   },
