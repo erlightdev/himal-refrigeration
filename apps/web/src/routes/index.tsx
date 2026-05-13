@@ -19,26 +19,63 @@ const FLOATERS = [
 function HomeComponent() {
   return (
     <main className="bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-      <section className="relative isolate overflow-hidden">
-        {/* AC image as hero top background — fades into theme bg */}
+      <section className="relative isolate flex min-h-svh flex-col justify-center overflow-hidden">
+        {/* AC airflow video as hero top background — black bg dropped via blend */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[70vh] min-h-[520px] overflow-hidden"
+          className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
         >
-          <img
-            src="/Cold.png"
-            alt=""
-            className="block h-full w-full object-cover object-top opacity-70 dark:hidden"
+          {/* Light: cold airflow — white bg dropped via multiply */}
+          <video
+            src="/cold-video.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            className="block h-full w-full object-contain object-top md:object-cover mix-blend-multiply dark:hidden"
           />
-          <img
-            src="/Warm.png"
-            alt=""
-            className="hidden h-full w-full object-cover object-top opacity-80 dark:block"
+          {/* Dark: warm airflow — black bg dropped via screen */}
+          <video
+            src="/warm-video.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            className="hidden h-full w-full object-contain object-top md:object-cover mix-blend-screen dark:block"
           />
-          {/* Air-blow color gradient overlay (cool blue / warm red) */}
-          <div className="absolute inset-0 bg-[radial-gradient(60%_55%_at_50%_0%,rgba(25,118,210,0.30),transparent_75%)] dark:bg-[radial-gradient(60%_55%_at_50%_0%,rgba(168,28,42,0.40),transparent_75%)]" />
-          {/* Fade into page bg so content below reads cleanly */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/60 to-white dark:via-zinc-950/60 dark:to-zinc-950" />
+          {/* Themed atmospheric overlay — cold (light) / warm (dark) */}
+          <div
+            className="absolute inset-0 block dark:hidden"
+            style={{
+              backgroundImage:
+                "radial-gradient(60% 55% at 50% 0%, rgba(25,118,210,0.22), transparent 70%), linear-gradient(180deg, rgba(186,230,253,0.25) 0%, rgba(219,234,254,0.12) 40%, rgba(255,255,255,0) 100%)",
+            }}
+          />
+          <div
+            className="absolute inset-0 hidden dark:block"
+            style={{
+              backgroundImage:
+                "radial-gradient(60% 55% at 50% 0%, rgba(255,138,107,0.28), transparent 70%), linear-gradient(180deg, rgba(168,28,42,0.22) 0%, rgba(120,40,20,0.12) 40%, rgba(0,0,0,0) 100%)",
+            }}
+          />
+
+          {/* Readability scrim — lightens middle band in light mode, darkens in dark */}
+          <div
+            className="absolute inset-0 block dark:hidden"
+            style={{
+              backgroundImage:
+                "linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.55) 35%, rgba(255,255,255,0.55) 70%, rgba(255,255,255,0) 100%)",
+            }}
+          />
+          <div
+            className="absolute inset-0 hidden dark:block"
+            style={{
+              backgroundImage:
+                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 30%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0) 100%)",
+            }}
+          />
         </div>
 
 {/* Floating icons: keyframes */}
@@ -93,7 +130,7 @@ function HomeComponent() {
           ))}
         </div>
 
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 pt-28 pb-24 text-center md:pt-36 md:pb-32">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-20 text-center md:py-24">
           <span className="inline-flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/70 px-3 py-1 text-xs font-medium text-zinc-700 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:text-zinc-200">
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#1976d2] opacity-75 dark:bg-[#ff8a6b]" />
@@ -125,7 +162,7 @@ function HomeComponent() {
             technicians.
           </p>
           {/* Dark subhead */}
-          <p className="mt-7 hidden max-w-2xl text-pretty text-base leading-relaxed text-zinc-300 md:text-lg dark:block">
+          <p className="mt-7 hidden max-w-2xl text-pretty text-base leading-relaxed text-zinc-100 [text-shadow:0_2px_8px_rgba(0,0,0,0.5)] md:text-lg dark:block">
             Heating systems, heat pumps and full HVAC service — keeping homes
             and businesses warm through every Himalayan winter.
           </p>
