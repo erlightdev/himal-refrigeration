@@ -204,8 +204,8 @@ export default function Footer() {
         <div className="mt-8 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <Link to="/" className="inline-flex items-center" aria-label="Himal Refrigeration">
             <ThemedImage
-              light="https://placehold.co/200x44/ffffff/0a0a0a/png?text=HIMAL+REFRIGERATION&font=inter"
-              dark="https://placehold.co/200x44/0a0a0a/ffffff/png?text=HIMAL+REFRIGERATION&font=inter"
+              light="https://placehold.co/200x44/bb0000/ffffff/png?text=HIMAL+REFRIGERATION&font=inter"
+              dark="https://placehold.co/200x44/8A0303/ffffff/png?text=HIMAL+REFRIGERATION&font=inter"
               alt="Himal Refrigeration"
               className="h-9 w-auto object-contain"
             />
