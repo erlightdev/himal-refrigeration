@@ -8,7 +8,6 @@ import {
   Gauge,
   HeartPulse,
   Menu,
-  Phone,
   Pill,
   ShieldCheck,
   ShoppingCart,
@@ -110,6 +109,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [banner, setBanner] = useState(true);
   const [hovered, setHovered] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -201,17 +201,10 @@ export default function Header() {
             </nav>
 
             <div className="flex items-center gap-2">
-              <a
-                href="tel:+97714000000"
-                className="hidden items-center gap-2 rounded-md px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-100 md:inline-flex dark:text-zinc-300 dark:hover:bg-white/5"
-              >
-                <Phone className="h-3.5 w-3.5" strokeWidth={1.75} />
-                +977 1 400 0000
-              </a>
               <ModeToggle />
               <button
                 type="button"
-                className="hidden items-center gap-2 rounded-md bg-[#1976d2] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#1565c0] active:translate-y-px md:inline-flex"
+                className="hidden items-center gap-2 rounded-md bg-[#1976d2] px-4 py-2 font-medium text-sm text-white transition hover:brightness-110 active:translate-y-px md:inline-flex dark:bg-[#a81c2a]"
               >
                 Book a call
                 <ArrowRight className="h-4 w-4" strokeWidth={2} />
@@ -295,31 +288,127 @@ export default function Header() {
         </div>
       </div>
 
-      {open && (
-        <div className="pointer-events-auto fixed inset-x-3 top-24 bottom-3 z-40 overflow-y-auto rounded-lg border border-zinc-200 bg-white px-6 py-6 shadow-2xl lg:hidden dark:border-white/10 dark:bg-zinc-950">
-          <nav className="flex flex-col divide-y divide-zinc-200 dark:divide-white/10">
-            {nav.map((item) => (
+      <button
+        type="button"
+        aria-label="Close menu"
+        tabIndex={open ? 0 : -1}
+        onClick={() => setOpen(false)}
+        className={`fixed inset-0 z-30 bg-zinc-950/40 backdrop-blur-sm transition-opacity duration-200 lg:hidden ${
+          open ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      />
+
+      <div
+        aria-hidden={!open}
+        className={`pointer-events-auto fixed inset-x-3 top-3 z-40 origin-top overflow-y-auto rounded-lg border border-zinc-200 bg-white shadow-2xl transition duration-200 ease-out lg:hidden dark:border-white/10 dark:bg-zinc-950 ${
+          open
+            ? "translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-2 opacity-0"
+        }`}
+        style={{ maxHeight: "calc(100dvh - 1.5rem)" }}
+      >
+        <div className="flex items-center justify-between border-zinc-200 border-b px-5 py-4 dark:border-white/10">
+          <img
+            src="https://placehold.co/200x44/8A0303/ffffff/png?text=HIMAL+REFRIGERATION&font=inter"
+            alt="Himal Refrigeration"
+            className="h-9 w-auto object-contain"
+          />
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={() => setOpen(false)}
+            className="grid h-9 w-9 place-items-center rounded-md border border-zinc-200 text-zinc-700 transition hover:bg-zinc-100 dark:border-white/10 dark:text-zinc-300 dark:hover:bg-white/5"
+          >
+            <X className="h-4 w-4" strokeWidth={2} />
+          </button>
+        </div>
+
+        <nav className="flex flex-col divide-y divide-zinc-200 px-5 dark:divide-white/10">
+          {nav.map((item, i) => {
+            const itemStyle = { transitionDelay: open ? `${i * 30}ms` : "0ms" };
+            const baseAnim = `transition-all duration-200 ${
+              open ? "translate-x-0 opacity-100" : "-translate-x-2 opacity-0"
+            }`;
+            if (item.mega) {
+              const isExpanded = expanded === item.label;
+              return (
+                <div key={item.label} className={baseAnim} style={itemStyle}>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setExpanded((v) => (v === item.label ? null : item.label))
+                    }
+                    aria-expanded={isExpanded}
+                    className="flex w-full items-center justify-between py-4 font-medium text-lg text-zinc-900 dark:text-zinc-100"
+                  >
+                    {item.label}
+                    <ChevronDown
+                      className={`h-4 w-4 text-zinc-400 transition-transform duration-200 ${
+                        isExpanded ? "rotate-180" : ""
+                      }`}
+                      strokeWidth={1.75}
+                    />
+                  </button>
+                  <div
+                    className={`grid transition-all duration-200 ${
+                      isExpanded
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <ul className="overflow-hidden">
+                      {item.mega.items.map(({ label, category, Icon }) => (
+                        <li key={label}>
+                          <a
+                            href="/"
+                            onClick={() => setOpen(false)}
+                            className="flex items-center gap-3 py-2.5 pl-1"
+                          >
+                            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-md bg-[#1976d2]/10 text-[#1976d2]">
+                              <Icon className="h-4 w-4" strokeWidth={1.75} />
+                            </span>
+                            <span>
+                              <span className="block font-medium text-[15px] text-zinc-900 dark:text-zinc-100">
+                                {label}
+                              </span>
+                              <span className="block text-xs text-zinc-500 dark:text-zinc-400">
+                                {category}
+                              </span>
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              );
+            }
+            return (
               <Link
                 key={item.label}
                 to={item.to}
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-between py-4 font-medium text-lg text-zinc-900 dark:text-zinc-100"
+                style={itemStyle}
+                className={`flex items-center justify-between py-4 font-medium text-lg text-zinc-900 dark:text-zinc-100 ${baseAnim}`}
               >
                 {item.label}
                 <ArrowRight className="h-4 w-4 text-zinc-400" strokeWidth={1.75} />
               </Link>
-            ))}
-          </nav>
+            );
+          })}
+        </nav>
+
+        <div className="px-5 pt-4 pb-6">
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#1976d2] px-5 py-3 font-medium text-sm text-white"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#1976d2] px-5 py-3 font-medium text-sm text-white transition active:translate-y-px"
           >
             Book a call
             <ArrowRight className="h-4 w-4" strokeWidth={2} />
           </button>
         </div>
-      )}
+      </div>
     </header>
   );
 }
