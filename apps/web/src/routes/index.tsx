@@ -1,33 +1,44 @@
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  CheckCircle2,
-  PhoneCall,
-} from "lucide-react";
+import { ArrowRight, PhoneCall } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
 });
 
-const stats = [
-  { value: "12+", label: "Years in service" },
-  { value: "200+", label: "Businesses served" },
-  { value: "24/7", label: "Emergency support" },
-];
-
 function HomeComponent() {
   return (
     <main className="bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
       <section className="relative isolate overflow-hidden">
-        {/* Brand glows */}
+        {/* AC image as hero top background — fades into theme bg */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(50%_50%_at_50%_0%,rgba(25,118,210,0.18),transparent_70%),radial-gradient(40%_50%_at_50%_100%,rgba(168,28,42,0.10),transparent_70%)] dark:bg-[radial-gradient(50%_50%_at_50%_0%,rgba(25,118,210,0.30),transparent_70%),radial-gradient(40%_50%_at_50%_100%,rgba(168,28,42,0.22),transparent_70%)]"
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[70vh] min-h-[520px] overflow-hidden"
+        >
+          <img
+            src="/Cold.png"
+            alt=""
+            className="block h-full w-full object-cover object-top opacity-70 dark:hidden"
+          />
+          <img
+            src="/Warm.png"
+            alt=""
+            className="hidden h-full w-full object-cover object-top opacity-80 dark:block"
+          />
+          {/* Air-blow color gradient overlay (cool blue / warm red) */}
+          <div className="absolute inset-0 bg-[radial-gradient(60%_55%_at_50%_0%,rgba(25,118,210,0.30),transparent_75%)] dark:bg-[radial-gradient(60%_55%_at_50%_0%,rgba(168,28,42,0.40),transparent_75%)]" />
+          {/* Fade into page bg so content below reads cleanly */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/60 to-white dark:via-zinc-950/60 dark:to-zinc-950" />
+        </div>
+
+        {/* Brand glows (subtle, behind everything) */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(40%_50%_at_50%_100%,rgba(168,28,42,0.10),transparent_70%)] dark:bg-[radial-gradient(40%_50%_at_50%_100%,rgba(168,28,42,0.22),transparent_70%)]"
         />
         {/* Dot grid */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 [background-image:radial-gradient(rgba(24,24,27,0.08)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_80%)] dark:[background-image:radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)]"
+          className="pointer-events-none absolute inset-0 -z-20 [background-image:radial-gradient(rgba(24,24,27,0.08)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_80%)] dark:[background-image:radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)]"
         />
 
         <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-6 pt-28 pb-24 text-center md:pt-36 md:pb-32">
@@ -78,32 +89,6 @@ function HomeComponent() {
             </a>
           </div>
 
-          <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-zinc-600 dark:text-zinc-400">
-            {["Licensed & insured", "Same-day service", "5-year warranty"].map(
-              (t) => (
-                <li key={t} className="inline-flex items-center gap-2">
-                  <CheckCircle2
-                    className="h-4 w-4 text-[#1976d2]"
-                    strokeWidth={2}
-                  />
-                  {t}
-                </li>
-              ),
-            )}
-          </ul>
-
-          <div className="mt-14 grid w-full max-w-2xl grid-cols-3 gap-6 border-t border-zinc-200 pt-8 dark:border-white/10">
-            {stats.map((s) => (
-              <div key={s.label}>
-                <p className="text-2xl font-bold tracking-tight md:text-3xl">
-                  {s.value}
-                </p>
-                <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-                  {s.label}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
     </main>
