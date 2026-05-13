@@ -1,99 +1,108 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, PlayCircle, ShieldCheck, Snowflake, Wrench } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  PhoneCall,
+} from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
 });
 
-const highlights = [
-  { Icon: Snowflake, label: "Energy-efficient cooling" },
-  { Icon: Wrench, label: "24/7 service network" },
-  { Icon: ShieldCheck, label: "5-year warranty" },
+const stats = [
+  { value: "12+", label: "Years in service" },
+  { value: "200+", label: "Businesses served" },
+  { value: "24/7", label: "Emergency support" },
 ];
 
 function HomeComponent() {
   return (
-    <main>
-      <section className="relative isolate overflow-hidden bg-white dark:bg-zinc-950">
+    <main className="bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+      <section className="relative isolate overflow-hidden">
+        {/* Brand glows */}
         <div
           aria-hidden
-          className="-z-10 pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(25,118,210,0.18),transparent_55%),radial-gradient(circle_at_5%_90%,rgba(25,118,210,0.08),transparent_60%)] dark:bg-[radial-gradient(circle_at_85%_10%,rgba(25,118,210,0.25),transparent_55%),radial-gradient(circle_at_5%_90%,rgba(168,28,42,0.18),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(50%_50%_at_50%_0%,rgba(25,118,210,0.18),transparent_70%),radial-gradient(40%_50%_at_50%_100%,rgba(168,28,42,0.10),transparent_70%)] dark:bg-[radial-gradient(50%_50%_at_50%_0%,rgba(25,118,210,0.30),transparent_70%),radial-gradient(40%_50%_at_50%_100%,rgba(168,28,42,0.22),transparent_70%)]"
         />
+        {/* Dot grid */}
         <div
           aria-hidden
-          className="-z-10 pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.04)_1px,transparent_1px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)]"
+          className="pointer-events-none absolute inset-0 -z-10 [background-image:radial-gradient(rgba(24,24,27,0.08)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_80%)] dark:[background-image:radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)]"
         />
 
-        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-6 pt-28 pb-20 md:px-10 md:pt-36 md:pb-28 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/60 px-3 py-1 text-xs text-zinc-600 dark:border-white/10 dark:bg-white/5 dark:text-zinc-300">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#1976d2]" />
-              Trusted by 200+ businesses in Nepal
+        <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-6 pt-28 pb-24 text-center md:pt-36 md:pb-32">
+          <span className="inline-flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/70 px-3 py-1 text-xs font-medium text-zinc-700 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:text-zinc-200">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#1976d2] opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#1976d2]" />
             </span>
-            <h1 className="mt-5 text-balance font-light text-4xl text-zinc-900 leading-[1.05] tracking-tight md:text-6xl dark:text-zinc-100">
-              Refrigeration that runs{" "}
-              <span className="text-[#1976d2]">quietly</span>, lasts longer,
-              and keeps costs predictable.
-            </h1>
-            <p className="mt-6 max-w-xl text-pretty text-base text-zinc-600 leading-relaxed dark:text-zinc-400">
-              From walk-in cold storage to industrial chiller rooms — Himal
-              Refrigeration designs, installs, and services cooling systems
-              for restaurants, hospitals, dairies, and logistics across the
-              country.
-            </p>
+            Now booking installs across Nepal
+          </span>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                className="group inline-flex items-center gap-2 rounded-full bg-[#1976d2] px-5 py-3 font-medium text-sm text-white transition hover:bg-[#1565c0] active:translate-y-px"
-              >
-                Get a free quote
-                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" strokeWidth={2} />
-              </button>
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-5 py-3 font-medium text-sm text-zinc-900 transition hover:border-zinc-300 hover:bg-zinc-50 active:translate-y-px dark:border-white/10 dark:bg-white/5 dark:text-zinc-100 dark:hover:bg-white/10"
-              >
-                <PlayCircle className="h-4 w-4" strokeWidth={1.75} />
-                Watch how we work
-              </button>
-            </div>
+          <h1 className="mt-7 text-balance text-6xl font-black leading-[0.98] tracking-tight md:text-6xl lg:text-6xl">
+            High Quality{" "}
+            <span className="relative inline-block">
+              <span className="bg-gradient-to-r from-[#1976d2] to-[#a81c2a] bg-clip-text text-transparent">
+                HVAC
+              </span>
+              <span
+                aria-hidden
+                className="absolute -bottom-1 left-0 h-1 w-full rounded-full bg-gradient-to-r from-[#1976d2] to-[#a81c2a] opacity-70"
+              />
+            </span>
+            <span className="block">Installation & Repair</span>
+          </h1>
 
-            <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-4 text-sm text-zinc-600 dark:text-zinc-400">
-              {highlights.map(({ Icon, label }) => (
-                <li key={label} className="inline-flex items-center gap-2">
-                  <Icon className="h-4 w-4 text-[#1976d2]" strokeWidth={1.75} />
-                  {label}
-                </li>
-              ))}
-            </ul>
+          <p className="mt-7 max-w-2xl text-pretty text-base leading-relaxed text-zinc-600 md:text-lg dark:text-zinc-400">
+            Air conditioning, refrigeration and cold storage — designed,
+            installed and serviced for Nepal's climate by certified
+            technicians.
+          </p>
+
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <button
+              type="button"
+              className="group inline-flex items-center gap-2 rounded-full bg-zinc-900 px-6 py-3 text-sm font-medium text-white shadow-lg shadow-zinc-900/20 ring-1 ring-zinc-900/10 transition hover:bg-black active:translate-y-px dark:bg-white dark:text-zinc-900 dark:shadow-white/10 dark:ring-white/20 dark:hover:bg-zinc-100"
+            >
+              Get a free quote
+              <span className="grid h-5 w-5 place-items-center rounded-full bg-white/15 transition group-hover:translate-x-0.5 dark:bg-zinc-900/10">
+                <ArrowRight className="h-3 w-3" strokeWidth={2.5} />
+              </span>
+            </button>
+            <a
+              href="tel:+9779800000000"
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-3 text-sm font-medium text-zinc-900 transition hover:border-zinc-300 hover:bg-zinc-50 active:translate-y-px dark:border-white/10 dark:bg-white/5 dark:text-zinc-100 dark:hover:bg-white/10"
+            >
+              <PhoneCall className="h-4 w-4 text-[#1976d2]" strokeWidth={2} />
+              Call a technician
+            </a>
           </div>
 
-          <div className="relative">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-100 shadow-[0_30px_60px_-30px_rgba(25,118,210,0.35)] sm:aspect-[5/4] lg:aspect-[4/5] dark:border-white/10 dark:bg-zinc-900">
-              <img
-                src="https://picsum.photos/seed/himal-refrigeration-hero/900/1100"
-                alt="Industrial refrigeration installation"
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-zinc-950/30 via-transparent to-transparent" />
-            </div>
+          <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+            {["Licensed & insured", "Same-day service", "5-year warranty"].map(
+              (t) => (
+                <li key={t} className="inline-flex items-center gap-2">
+                  <CheckCircle2
+                    className="h-4 w-4 text-[#1976d2]"
+                    strokeWidth={2}
+                  />
+                  {t}
+                </li>
+              ),
+            )}
+          </ul>
 
-            <div className="absolute -bottom-6 -left-4 hidden w-64 rounded-2xl border border-zinc-200 bg-white p-4 shadow-xl sm:block dark:border-white/10 dark:bg-zinc-900">
-              <div className="flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-[#1976d2]/10 text-[#1976d2]">
-                  <Snowflake className="h-5 w-5" strokeWidth={1.75} />
-                </span>
-                <div>
-                  <p className="font-semibold text-sm text-zinc-900 dark:text-zinc-100">
-                    -22°C maintained
-                  </p>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                    Cold storage, Bhairahawa
-                  </p>
-                </div>
+          <div className="mt-14 grid w-full max-w-2xl grid-cols-3 gap-6 border-t border-zinc-200 pt-8 dark:border-white/10">
+            {stats.map((s) => (
+              <div key={s.label}>
+                <p className="text-2xl font-bold tracking-tight md:text-3xl">
+                  {s.value}
+                </p>
+                <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+                  {s.label}
+                </p>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
