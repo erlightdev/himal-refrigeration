@@ -1,9 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, PhoneCall } from "lucide-react";
+import { ArrowRight, PhoneCall, Snowflake, SunSnow } from "lucide-react";
+import type React from "react";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
 });
+
+// 6 floating icons at random positions / sizes / animation timings
+const FLOATERS = [
+  { top: "8%",  left: "8%",  size: 28, dur: 9,  delay: 0,   dx: 18,  dy: -22, rot: 24 },
+  { top: "18%", left: "82%", size: 22, dur: 11, delay: 1.4, dx: -20, dy: 16,  rot: -18 },
+  { top: "55%", left: "12%", size: 32, dur: 13, delay: 0.6, dx: 22,  dy: 20,  rot: 32 },
+  { top: "62%", left: "78%", size: 26, dur: 10, delay: 2.2, dx: -16, dy: -18, rot: -28 },
+  { top: "32%", left: "48%", size: 20, dur: 12, delay: 3.0, dx: 12,  dy: 24,  rot: 16 },
+  { top: "78%", left: "42%", size: 24, dur: 14, delay: 1.8, dx: -22, dy: -14, rot: -22 },
+] as const;
 
 function HomeComponent() {
   return (
@@ -30,44 +41,93 @@ function HomeComponent() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/60 to-white dark:via-zinc-950/60 dark:to-zinc-950" />
         </div>
 
-        {/* Brand glows (subtle, behind everything) */}
+{/* Floating icons: keyframes */}
+        <style>{`
+          @keyframes hr-float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50%      { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); }
+          }
+          @keyframes hr-glow-cold {
+            0%, 100% { opacity: 0.55; filter: drop-shadow(0 0 6px rgba(25,118,210,0.55)); }
+            50%      { opacity: 1;    filter: drop-shadow(0 0 16px rgba(25,118,210,0.95)); }
+          }
+          @keyframes hr-glow-warm {
+            0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 8px rgba(255,138,107,0.65)); }
+            50%      { opacity: 1;   filter: drop-shadow(0 0 18px rgba(255,138,107,0.95)); }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .hr-floater { animation: none !important; }
+          }
+        `}</style>
+
+        {/* Floating icon background — 6 icons, random drift + glow pulse */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(40%_50%_at_50%_100%,rgba(168,28,42,0.10),transparent_70%)] dark:bg-[radial-gradient(40%_50%_at_50%_100%,rgba(168,28,42,0.22),transparent_70%)]"
-        />
-        {/* Dot grid */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-20 [background-image:radial-gradient(rgba(24,24,27,0.08)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_80%)] dark:[background-image:radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)]"
-        />
-
-        <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-6 pt-28 pb-24 text-center md:pt-36 md:pb-32">
-          <span className="inline-flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/70 px-3 py-1 text-xs font-medium text-zinc-700 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:text-zinc-200">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#1976d2] opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#1976d2]" />
-            </span>
-            Now booking installs across Nepal
-          </span>
-
-          <h1 className="mt-7 text-balance text-6xl font-black leading-[0.98] tracking-tight md:text-6xl lg:text-6xl">
-            High Quality{" "}
-            <span className="relative inline-block">
-              <span className="bg-gradient-to-r from-[#1976d2] to-[#a81c2a] bg-clip-text text-transparent">
-                HVAC
-              </span>
-              <span
-                aria-hidden
-                className="absolute -bottom-1 left-0 h-1 w-full rounded-full bg-gradient-to-r from-[#1976d2] to-[#a81c2a] opacity-70"
+          className="pointer-events-none absolute inset-0 -z-20 overflow-hidden"
+        >
+          {FLOATERS.map((f) => (
+            <span
+              key={`${f.top}-${f.left}`}
+              className="hr-floater absolute text-[#1976d2] dark:text-[#ff8a6b]"
+              style={{
+                top: f.top,
+                left: f.left,
+                "--dx": `${f.dx}px`,
+                "--dy": `${f.dy}px`,
+                "--rot": `${f.rot}deg`,
+                animation: `hr-float ${f.dur}s ease-in-out ${f.delay}s infinite, hr-glow-cold ${(f.dur / 2).toFixed(1)}s ease-in-out ${f.delay}s infinite`,
+              } as React.CSSProperties}
+            >
+              <Snowflake
+                className="block dark:hidden"
+                size={f.size}
+                strokeWidth={1.6}
+              />
+              <SunSnow
+                className="hidden dark:block"
+                style={{ animation: `hr-glow-warm ${(f.dur / 2).toFixed(1)}s ease-in-out ${f.delay}s infinite` }}
+                size={f.size}
+                strokeWidth={1.6}
               />
             </span>
-            <span className="block">Installation & Repair</span>
+          ))}
+        </div>
+
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 pt-28 pb-24 text-center md:pt-36 md:pb-32">
+          <span className="inline-flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/70 px-3 py-1 text-xs font-medium text-zinc-700 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:text-zinc-200">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#1976d2] opacity-75 dark:bg-[#ff8a6b]" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#1976d2] dark:bg-[#ff8a6b]" />
+            </span>
+            <span className="block dark:hidden">Booking AC installs across Nepal</span>
+            <span className="hidden dark:block">24/7 heating &amp; emergency repairs</span>
+          </span>
+
+          {/* Light mode headline */}
+          <h1 className="mt-7 block text-balance font-serif text-5xl font-semibold leading-[1.02] tracking-tight text-zinc-900 md:text-6xl lg:text-7xl dark:hidden">
+            Reliable cooling,
+            <span className="mt-1 block font-medium italic text-[#1976d2]">
+              for every season of business.
+            </span>
+          </h1>
+          {/* Dark mode headline */}
+          <h1 className="mt-7 hidden text-balance font-serif text-5xl font-semibold leading-[1.02] tracking-tight text-zinc-100 md:text-6xl lg:text-7xl dark:block">
+            Warmth on demand,
+            <span className="mt-1 block font-medium italic text-[#ff8a6b]">
+              comfort that holds the line.
+            </span>
           </h1>
 
-          <p className="mt-7 max-w-2xl text-pretty text-base leading-relaxed text-zinc-600 md:text-lg dark:text-zinc-400">
+          {/* Light subhead */}
+          <p className="mt-7 block max-w-2xl text-pretty text-base leading-relaxed text-zinc-600 md:text-lg dark:hidden">
             Air conditioning, refrigeration and cold storage — designed,
-            installed and serviced for Nepal's climate by certified
+            installed and serviced for Nepal&apos;s climate by certified
             technicians.
+          </p>
+          {/* Dark subhead */}
+          <p className="mt-7 hidden max-w-2xl text-pretty text-base leading-relaxed text-zinc-300 md:text-lg dark:block">
+            Heating systems, heat pumps and full HVAC service — keeping homes
+            and businesses warm through every Himalayan winter.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
