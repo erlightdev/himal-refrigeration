@@ -11,6 +11,7 @@
     "check-types": "vite build && tsc --noEmit"
   },
   "dependencies": {
+    "@blossom-carousel/react": "^1.1.1",
     "@Himal-Refrigeration/env": "*",
     "@Himal-Refrigeration/ui": "*",
     "@hookform/resolvers": "^5.2.2",
