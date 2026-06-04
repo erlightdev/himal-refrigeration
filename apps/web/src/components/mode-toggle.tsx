@@ -44,9 +44,9 @@ export function ModeToggle() {
       size="icon"
       onClick={handleClick}
       title={`Toggle ${nextTheme} mode`}
-      className="relative rounded-md bg-blue-500/20 hover:bg-blue-500/30 dark:bg-red-600/30 dark:hover:bg-red-600/40 border-blue-300/40 dark:border-red-500/40 backdrop-blur-md"
+      className="relative rounded-md border-blue-300/40 bg-blue-500/20 backdrop-blur-md hover:bg-blue-500/30 dark:border-[#ff8a6b]/40 dark:bg-[#ff8a6b]/20 dark:hover:bg-[#ff8a6b]/30"
     >
-      <div ref={iconRef} className="text-blue-600 dark:text-red-500">{getIcon()}</div>
+      <div ref={iconRef} className="text-blue-600 dark:text-[#ff8a6b]">{getIcon()}</div>
       <span className="sr-only">Toggle theme</span>
     </Button>
   );
